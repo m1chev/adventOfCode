@@ -16,22 +16,22 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-    var sum, max int
+	var sum, max int
 
 	for scanner.Scan() {
-        line := scanner.Text()
-        if line != "" {
-            calories, err := strconv.Atoi(line)
-            if err != nil {
-                fmt.Print(err)
-            }
-            sum += calories
-        } else {
-            if max < sum {
-                max = sum
-            }
-            sum = 0
-        }
+		line := scanner.Text()
+		if line != "" {
+			calories, err := strconv.Atoi(line)
+			if err != nil {
+				fmt.Print(err)
+			}
+			sum += calories
+		} else {
+			if max < sum {
+				max = sum
+			}
+			sum = 0
+		}
 	}
-    fmt.Println(max)
+	fmt.Println(max)
 }
