@@ -1,14 +1,18 @@
+// The line below solves the task in terminal
+// cat ../input | paste -sd + | sed 's/++/\n/g' | bc | sort -n | tail -3 | paste -sd + | bc
+
 package main
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
 
 func main() {
-	file, err := os.Open("input")
+	file, err := os.Open("../input")
 	if err != nil {
 		fmt.Print(err)
 	}
@@ -16,7 +20,8 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-	var sum, max int
+	var sum int
+	var elves []int
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -27,11 +32,13 @@ func main() {
 			}
 			sum += calories
 		} else {
-			if max < sum {
-				max = sum
-			}
+			elves = append(elves, sum)
 			sum = 0
 		}
 	}
-	fmt.Println(max)
+	sort.Slice(elves, func(i, j int) bool {
+		return elves[i] > elves[j]
+	})
+	total := elves[0] + elves[1] + elves[2]
+	fmt.Println(total)
 }
